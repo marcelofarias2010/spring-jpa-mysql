@@ -1,26 +1,14 @@
 package com.example.spring.demo_spring_com_jpa_mysql.projection;
 
-public class AutorInfoProjection {
+import org.springframework.beans.factory.annotation.Value;
 
-    private String nomeCompleto;
-    private String cargo;
-    private String bio;
+public interface AutorInfoProjection {
 
-    public AutorInfoProjection(String nome, String sobrenome, String cargo, String bio) {
-        this.nomeCompleto = nome + " " + sobrenome;
-        this.cargo = cargo;
-        this.bio = bio;
-    }
+    @Value("#{target.nome + ' ' + target.sobrenome}")
+    String getNomeCompleto();
 
-    public String getNomeCompleto() {
-        return nomeCompleto;
-    }
+    String getCargo();
 
-    public String getCargo() {
-        return cargo;
-    }
+    String getBio();
 
-    public String getBio() {
-        return bio;
-    }
 }

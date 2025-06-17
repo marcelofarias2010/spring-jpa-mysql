@@ -15,14 +15,15 @@ public class InfoAutor implements Serializable {
 
     @Column(name = "cargo", length = 45, nullable = false)
     private String cargo;
+
     @Column(name = "bio", length = 255, nullable = true)
     private String bio;
 
-    public Long getId(){
+    public Long getId() {
         return id;
     }
 
-    public void setId(Long id){
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -44,6 +45,7 @@ public class InfoAutor implements Serializable {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         InfoAutor infoAutor = (InfoAutor) o;
         return Objects.equals(id, infoAutor.id);
