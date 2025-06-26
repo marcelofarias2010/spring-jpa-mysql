@@ -25,7 +25,10 @@ public class AutorService {
 
     @Transactional(readOnly = false)
     public void update(Autor autor) {
-        this.repository.save(autor);
+        Autor persist = findById(autor.getId());
+        persist.setNome(autor.getNome());
+        persist.setSobrenome(autor.getSobrenome());
+
     }
 
     @Transactional(readOnly = false)

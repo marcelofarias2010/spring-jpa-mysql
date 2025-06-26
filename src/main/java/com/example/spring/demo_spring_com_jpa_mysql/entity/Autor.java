@@ -1,12 +1,21 @@
 package com.example.spring.demo_spring_com_jpa_mysql.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "AUTORES")
+@EntityListeners(AuditingEntityListener.class)
 public class Autor implements Serializable {
 
     @Id
@@ -23,6 +32,26 @@ public class Autor implements Serializable {
     @OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
     @JoinColumn(name = "id_info")
     private InfoAutor infoAutor;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "autor")
+    private List<Post> posts;
+
+    @Column(name = "criado_por")
+    @CreatedBy
+    private String criadoPor;
+
+    @Column(name = "data_criacao")
+    @CreatedDate
+    private LocalDateTime dataCriacao;
+
+    @Column(name = "modificado_por")
+    @LastModifiedBy
+    private String modificadoPor;
+
+    @Column(name = "data_modificacao")
+    @LastModifiedDate
+    private LocalDateTime dataModificacao;
 
     public InfoAutor getInfoAutor() {
         return infoAutor;
@@ -54,6 +83,46 @@ public class Autor implements Serializable {
 
     public void setSobrenome(String sobrenome) {
         this.sobrenome = sobrenome;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public String getCriadoPor() {
+        return criadoPor;
+    }
+
+    public void setCriadoPor(String criadoPor) {
+        this.criadoPor = criadoPor;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public String getModificadoPor() {
+        return modificadoPor;
+    }
+
+    public void setModificadoPor(String modificadoPor) {
+        this.modificadoPor = modificadoPor;
+    }
+
+    public LocalDateTime getDataModificacao() {
+        return dataModificacao;
+    }
+
+    public void setDataModificacao(LocalDateTime dataModificacao) {
+        this.dataModificacao = dataModificacao;
     }
 
     @Override
